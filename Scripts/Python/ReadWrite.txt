@@ -1,0 +1,98 @@
+
+Textfile
+f = open('testfile.txt', 'w')
+print(f)
+f.write('This is a test string.\n')
+f.write('This is the middle line.\n')
+f.write('This is the last line.')
+f.close()
+f = open('testfile.txt', 'a')
+f.write('\nThis is the appended line.')
+f.close()
+f = open('testfile.txt', 'r')
+print(f.read())
+f = open('testfile.txt', 'r')
+print(f.readlines())
+f = open('testfile.txt', 'r')
+for line in f:
+    print(line)
+f.close()
+
+
+CSV Files
+df1 = pd.read_csv("http://rcs.bu.edu/examples/python/data_analysis/Salaries.csv")
+df2 = pd.read_csv("Salaries.csv")
+df2.to_csv('output.csv', index=True, header=False)
+
+
+Excel Files
+excel_file = 'test.xlsx'
+df1 = pd.read_excel(excel_file)
+
+
+WEB
+!pip3 install lxml html5lib BeautifulSoup4
+import pandas as pd
+df1 = pd.read_html('https://www.google.com/')
+len(df1)
+type(df1)
+df1[0].head()
+from lxml import objectify
+from io import StringIO
+tag = '<a href="http://www.google.com/">Google</a>'
+root = objectify.parse(StringIO(tag)).getroot()
+root.get('href')
+print(root.text)
+
+Interact with Web API
+import requests
+url='https://api.github.com/repos/pandas-dev/pandas/issues'
+resp = requests.get(url)
+print(type(resp))
+data = resp.json()
+output = pd.DataFrame(data, columns=['number', 'title', 'labels', 'state'])
+
+
+
+JSON
+obj = """
+{"name": "Ashwin",
+"places_lived": ["Nashik", "Hyderabad", "Bangalore"],
+"pet": null,
+"siblings": [{"name": "Scott", "age": 30, "pets": ["Zeus", "Zuko"]},
+{"name": "Katie", "age": 38,
+"pets": ["Sixes", "Stache", "Cisco"]}]
+}
+"""
+
+import json
+result = json.loads(obj)
+df1 = pd.DataFrame(result['siblings'], columns=['name', 'age'])
+
+df2 = pd.read_json('example_2.json')
+
+PICKLE (Binary)
+data = [1, 2, 3, 4, 5]
+df1 = pd.DataFrame(data)
+df1.to_pickle('mypickle')
+df2 = pd.read_pickle('mypickle')
+
+Clipboard
+df = pd.read_clipboard()
+df.to_clipboard()
+
+
+DB SQL
+!pip3 install pymysql
+import pymysql
+db = pymysql.connect("localhost", "testuser", "test123", "world")
+df1 = pd.read_sql('select * from country', db)
+
+
+
+
+
+import numpy as np
+x = np.arange(100)
+np.save('test.npy', x)
+data = np.load('test.npy')

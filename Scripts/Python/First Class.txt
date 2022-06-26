@@ -1,0 +1,2 @@
+https://docs.python.org/3/py-modindex.html
+https://www.w3schools.com/python/python_classes.asp

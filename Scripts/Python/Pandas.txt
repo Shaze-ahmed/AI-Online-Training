@@ -1,0 +1,84 @@
+import panda as pd
+
+
+Series , DataFrames
+
+
+print(type(data))
+
+test_string = 'a,b, test'
+test_string.split()
+test_string.split(',')
+var = [x.strip() for x in test_string.split(',')]
+x, y, z = var
+x + ':' + y + ':' + z
+':'.join(var)
+
+
+Series 
+obj1 = pd.Series([1, 2, 3 , 5, -3])
+print(type(obj1))
+x = [1, 2, 4, 5, 3, 9]
+obj2 = pd.Series(x)
+y = np.array(x)
+obj2 = pd.Series(y)
+print(obj1.values)
+print(obj1.index)
+obj2 = pd.Series( x, index = ['a', 'b', 'c', 'd', 'e', 'f'])
+print(obj1[obj1 < 0])
+print(obj1[obj1 > 0])
+print ( obj1 * 3)
+obj2.index = [0, 1, 2, 3, 4, 5]
+
+
+data = ['Apple', 'Google', np.nan, 'Facebook']
+s1 = pd.Series(data)
+s1.isnull()
+s1.dropna()
+s1[s1.notnull()]
+
+s2 = pd.Series([3.14, -999, 2.87, -999, -1000, 3, 100])
+s2.replace(-999, 0)
+s2.replace([-999, -1000], 0)
+s2.replace([-999, -1000], [0, np.nan])
+
+
+DataFrames
+
+data = {'city': ['Mumbai', 'Mumbai', 'Mumbai',
+                'Hyderabad', 'Hyderabad', 'Hyderabad'],
+       'year': [2010, 2011, 2012, 2010, 2011, 2012,],
+       'population': [10.0, 10.1, 10.2, 5.2, 5.3, 5.5]}
+df1 = pd.DataFrame(data)
+df1.head()
+df1.tail()
+df2 = pd.DataFrame(data, columns=['year', 'city', 'population'])
+df3 = pd.DataFrame(data, columns=['year', 'city', 'population', 'GDP'],
+                  index = ['one', 'two', 'three', 'four', 'five', 'six'])
+print(df3.columns)
+df3.index
+print(df3.year)
+print(df3.dtypes)
+df3.loc['one']
+df3.GDP = 10
+val = pd.Series([-1.4, 1.5, -1.3], index=['two', 'four', 'five'])
+df3.GDP = val
+				  
+
+df1 = pd.DataFrame([[2, 3, 35],
+                   [54, np.nan, np.nan],
+                   [np.nan, np.nan, np.nan],
+                   [np.nan, 3, 6]])
+df1.dropna()
+df1.dropna(how='all')
+df2 = pd.DataFrame(np.random.randn(7, 5))
+df2.iloc[:4, 1] = df2.iloc[:3, 3] = np.nan
+df2.fillna(0)
+df2.fillna(df2.mean())
+
+df3 = pd.DataFrame({'c1': ['Three', 'One'] * 3 + ['One'],
+                    'c2': [1, 1, 2, 3, 3, 4, 4]})
+df3.duplicated()
+df3.drop_duplicates()
+df3.drop_duplicates(['c1'])
+df3.drop_duplicates(['c2'])					
